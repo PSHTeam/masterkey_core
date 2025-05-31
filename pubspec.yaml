@@ -1,0 +1,47 @@
+name: masterkey_core
+description: "A Flutter package for managing master keys with encryption, storage, and utilities."
+version: 1.0.0
+homepage: https://github.com/PSHTeam/masterkey_core
+
+publish_to: none
+
+environment:
+  sdk: ^3.8.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared_preferences: ^2.5.2 # For storing simple key-value pairs persistently.
+  equatable: ^2.0.7 # Simplifies equality comparisons for Dart objects.
+  injectable: ^2.5.0 # Dependency injection framework for Dart and Flutter.
+  drift: ^2.26.0 # Reactive persistence library for Flutter and Dart.
+  drift_flutter: ^0.2.4 # Flutter integration for Drift.
+  path: ^1.9.1 # Utilities for manipulating file paths.
+  path_provider: ^2.1.5 # Access to commonly used locations on the filesystem.
+  dartz: ^0.10.1 # Functional programming tools for Dart.
+  intl: ^0.20.2 # Internationalization and localization utilities.
+  envied: ^1.1.1 # Environment variable management.
+  encrypt: ^5.0.3 # Encryption and decryption utilities.
+  crypto: ^3.0.6 # Cryptographic functions for Dart.
+  csv: ^6.0.0 # CSV file parsing and generation.
+  archive: ^4.0.4 # Utilities for working with archive files.
+  file_picker: ^9.2.1 # File picker for selecting files from the device.
+  path_drawing: ^1.0.1 # Path manipulation and drawing utilities.
+  get_it: ^8.0.3 # Simple service locator for dependency injection.
+  flutter_dotenv: ^5.2.1 # Load environment variables from a .env file.
+  pointycastle: ^3.9.1 # Cryptographic algorithms and utilities.
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0 # Linting rules for Flutter projects.
+  build_runner: ^2.4.14 # Code generation utility.
+  drift_dev: ^2.26.0 # Code generation for Drift.
+  injectable_generator: # Code generator for Injectable.
+  envied_generator: ^1.1.1 # Code generator for Envied.
+
+flutter:
+  uses-material-design: true 

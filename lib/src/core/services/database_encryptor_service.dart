@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer' show log;
 import 'dart:isolate';
 import 'dart:typed_data';
 
@@ -141,9 +140,7 @@ class DatabaseEncryptorService {
     );
     // Decode the decrypted bytes (UTF-8) back into a String.
     return utf8.decode(plaintext);
-    } catch (e, s) {
-      log('Decryption failed: $e',
-          error: e, stackTrace: s, name: 'decrypt');
+    } catch (e) {
       // It's generally better to throw a more specific error type or re-throw
       // the original error if the caller is expected to handle different crypto errors.
       throw CustomFailure('Decryption failed. Data might be corrupt or the master key is incorrect. Original error: ${e.toString()}');

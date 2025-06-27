@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:master_key/src/core/core.dart';
-
+export 'package:masterkey_core/src/src.dart';
 
 enum OrderType {
   byName,

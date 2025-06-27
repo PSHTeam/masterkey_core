@@ -3,3 +3,4 @@ export 'field_type.dart';
 export 'order_type.dart';
 export 'tables_type.dart';
 export 'progress_step.dart';
+export 'delete_type_dialog.dart';

@@ -14,7 +14,10 @@ import 'package:masterkey_core/dependency_injection.config.dart';
 final sl = GetIt.instance;
 
 @InjectableInit()
-Future<void> configureDependencies() async => sl.init();
+Future<void> configureDependenciesCore(Directory cacheDir) async {
+  sl.init();
+  sl.registerLazySingleton<Directory>(() => cacheDir);
+}
 
 @module
 abstract class RegisterModule {
@@ -24,7 +27,7 @@ abstract class RegisterModule {
   @singleton
   AppDatabase get database => AppDatabase();
 
-  @lazySingleton
-  Future<Directory> cacheDir() async =>
-      await getApplicationDocumentsDirectory();
+  //   @lazySingleton
+  //   Future<Directory> cacheDir() async =>
+  //       await getApplicationDocumentsDirectory();
 }

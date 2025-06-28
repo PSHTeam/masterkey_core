@@ -114,7 +114,9 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.singleton<_i1064.AppDatabase>(() => registerModule.database);
-    gh.lazySingletonAsync<_i497.Directory>(() => registerModule.cacheDir());
+    // gh.lazySingletonAsync<_i497.Directory>(
+    //   () async => await registerModule.cacheDir(),
+    // );
     gh.lazySingleton<_i493.CardLocalDataSource>(
       () => _i493.CardLocalDataSourceImpl(gh<_i1064.AppDatabase>()),
     );
@@ -149,10 +151,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i790.WalletLocalDatasource>(
       () => _i790.WalletLocalDatasourceImpl(gh<_i1064.AppDatabase>()),
     );
-    gh.lazySingletonAsync<_i305.CollectionLocalDatasource>(
-      () async => _i305.CollectionLocalDatasourceImpl(
+    gh.lazySingleton<_i305.CollectionLocalDatasource>(
+      () => _i305.CollectionLocalDatasourceImpl(
         gh<_i1064.AppDatabase>(),
-        await getAsync<_i497.Directory>(),
+        gh<_i497.Directory>(),
       ),
     );
     gh.lazySingletonAsync<_i1064.ManageDataRepository>(
@@ -182,10 +184,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1008.UpdateWalletUsecase>(
       () => _i1008.UpdateWalletUsecase(gh<_i1064.WalletRepository>()),
     );
-    gh.lazySingletonAsync<_i786.PasswordLocalDatasource>(
-      () async => _i786.PasswordLocalDatasourceImpl(
+    gh.lazySingleton<_i786.PasswordLocalDatasource>(
+      () => _i786.PasswordLocalDatasourceImpl(
         gh<_i1064.AppDatabase>(),
-        await getAsync<_i497.Directory>(),
+        gh<_i497.Directory>(),
       ),
     );
     gh.lazySingleton<_i82.CreateCardUsecase>(
@@ -208,88 +210,60 @@ extension GetItInjectableX on _i174.GetIt {
         await getAsync<_i1064.ManageDataRepository>(),
       ),
     );
-    gh.lazySingletonAsync<_i833.DeleteDatabaseUsecase>(
-      () async => _i833.DeleteDatabaseUsecase(
-        await getAsync<_i1064.ManageDataRepository>(),
+    gh.lazySingleton<_i833.DeleteDatabaseUsecase>(
+      () => _i833.DeleteDatabaseUsecase(gh<_i1064.ManageDataRepository>()),
+    );
+    gh.lazySingleton<_i564.ResetTheAppUsecase>(
+      () => _i564.ResetTheAppUsecase(gh<_i1064.ManageDataRepository>()),
+    );
+    gh.lazySingleton<_i692.RestoreBackupUsecase>(
+      () => _i692.RestoreBackupUsecase(gh<_i1064.ManageDataRepository>()),
+    );
+    gh.lazySingleton<_i1064.CollectionRepository>(
+      () => _i595.CollectionRepositoryImpl(
+        gh<_i1064.CollectionLocalDatasource>(),
       ),
     );
-    gh.lazySingletonAsync<_i564.ResetTheAppUsecase>(
-      () async => _i564.ResetTheAppUsecase(
-        await getAsync<_i1064.ManageDataRepository>(),
+    gh.lazySingleton<_i249.AddCollectionUsecase>(
+      () => _i249.AddCollectionUsecase(gh<_i1064.CollectionRepository>()),
+    );
+    gh.lazySingleton<_i366.DeleteCollectionUsecase>(
+      () => _i366.DeleteCollectionUsecase(gh<_i1064.CollectionRepository>()),
+    );
+    gh.lazySingleton<_i484.GetAllCollectionsUsecase>(
+      () => _i484.GetAllCollectionsUsecase(gh<_i1064.CollectionRepository>()),
+    );
+    gh.lazySingleton<_i232.GetCollectionUsecase>(
+      () => _i232.GetCollectionUsecase(gh<_i1064.CollectionRepository>()),
+    );
+    gh.lazySingleton<_i795.UpdateCollectionUsecase>(
+      () => _i795.UpdateCollectionUsecase(gh<_i1064.CollectionRepository>()),
+    );
+    gh.lazySingleton<_i1064.PasswordRepository>(
+      () => _i19.PasswordRepositoryImpl(gh<_i1064.PasswordLocalDatasource>()),
+    );
+    gh.lazySingleton<_i299.AddPasswordUsecase>(
+      () => _i299.AddPasswordUsecase(gh<_i1064.PasswordRepository>()),
+    );
+    gh.lazySingleton<_i429.DeletePasswordUsecase>(
+      () => _i429.DeletePasswordUsecase(gh<_i1064.PasswordRepository>()),
+    );
+    gh.lazySingleton<_i355.Toggle2FAUsecase>(
+      () => _i355.Toggle2FAUsecase(gh<_i1064.PasswordRepository>()),
+    );
+    gh.lazySingleton<_i396.GetAllPasswordsUsecase>(
+      () => _i396.GetAllPasswordsUsecase(gh<_i1064.PasswordRepository>()),
+    );
+    gh.lazySingleton<_i140.TogglePasswordArchiveStatusUsecase>(
+      () => _i140.TogglePasswordArchiveStatusUsecase(
+        gh<_i1064.PasswordRepository>(),
       ),
     );
-    gh.lazySingletonAsync<_i692.RestoreBackupUsecase>(
-      () async => _i692.RestoreBackupUsecase(
-        await getAsync<_i1064.ManageDataRepository>(),
-      ),
+    gh.lazySingleton<_i671.UpdatePasswordUsecase>(
+      () => _i671.UpdatePasswordUsecase(gh<_i1064.PasswordRepository>()),
     );
-    gh.lazySingletonAsync<_i1064.CollectionRepository>(
-      () async => _i595.CollectionRepositoryImpl(
-        await getAsync<_i1064.CollectionLocalDatasource>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i249.AddCollectionUsecase>(
-      () async => _i249.AddCollectionUsecase(
-        await getAsync<_i1064.CollectionRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i366.DeleteCollectionUsecase>(
-      () async => _i366.DeleteCollectionUsecase(
-        await getAsync<_i1064.CollectionRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i484.GetAllCollectionsUsecase>(
-      () async => _i484.GetAllCollectionsUsecase(
-        await getAsync<_i1064.CollectionRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i232.GetCollectionUsecase>(
-      () async => _i232.GetCollectionUsecase(
-        await getAsync<_i1064.CollectionRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i795.UpdateCollectionUsecase>(
-      () async => _i795.UpdateCollectionUsecase(
-        await getAsync<_i1064.CollectionRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i1064.PasswordRepository>(
-      () async => _i19.PasswordRepositoryImpl(
-        await getAsync<_i1064.PasswordLocalDatasource>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i299.AddPasswordUsecase>(
-      () async =>
-          _i299.AddPasswordUsecase(await getAsync<_i1064.PasswordRepository>()),
-    );
-    gh.lazySingletonAsync<_i429.DeletePasswordUsecase>(
-      () async => _i429.DeletePasswordUsecase(
-        await getAsync<_i1064.PasswordRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i355.Toggle2FAUsecase>(
-      () async =>
-          _i355.Toggle2FAUsecase(await getAsync<_i1064.PasswordRepository>()),
-    );
-    gh.lazySingletonAsync<_i396.GetAllPasswordsUsecase>(
-      () async => _i396.GetAllPasswordsUsecase(
-        await getAsync<_i1064.PasswordRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i140.TogglePasswordArchiveStatusUsecase>(
-      () async => _i140.TogglePasswordArchiveStatusUsecase(
-        await getAsync<_i1064.PasswordRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i671.UpdatePasswordUsecase>(
-      () async => _i671.UpdatePasswordUsecase(
-        await getAsync<_i1064.PasswordRepository>(),
-      ),
-    );
-    gh.lazySingletonAsync<_i668.DeletePasswordsUsecase>(
-      () async => _i668.DeletePasswordsUsecase(
-        await getAsync<_i1064.PasswordRepository>(),
-      ),
+    gh.lazySingleton<_i668.DeletePasswordsUsecase>(
+      () => _i668.DeletePasswordsUsecase(gh<_i1064.PasswordRepository>()),
     );
     return this;
   }

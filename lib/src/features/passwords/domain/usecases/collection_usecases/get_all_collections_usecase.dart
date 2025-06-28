@@ -13,7 +13,6 @@ class GetAllCollectionsUsecase
       repository.getAllCollections(params);
 }
 
-
 class GetCollectionsParams extends Equatable {
   final int limit;
   final int offset;

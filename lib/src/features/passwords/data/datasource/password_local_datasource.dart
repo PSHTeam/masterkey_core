@@ -9,6 +9,8 @@ abstract class PasswordLocalDatasource {
   Future<PasswordModel> addPassword(PasswordModel password);
   Future<PasswordModel> updatePassword(UpdatePasswordParams params);
   Future<bool> deletePassword(int passwordId);
+  Future<bool> deletePasswords(NoParams params);
+
   Future<List<PasswordModel>> getAllPasswords(GetAllPasswordsParams params);
 
   // enable 2FA
@@ -33,19 +35,17 @@ class PasswordLocalDatasourceImpl implements PasswordLocalDatasource {
 
       await appDatabase.passwordDao.insertPasswordFields(
         passwordId: newId,
-        passwordFields:
-            password.passwordFields
-                .map(
-                  (e) =>
-                      PasswordFieldModel.fromEntity(
-                        e.copyWith(
-                          passwordId: newId,
-                          createdAt: DateTime.now(),
-                          updatedAt: DateTime.now(),
-                        ),
-                      ).toTableCompanion(),
-                )
-                .toList(),
+        passwordFields: password.passwordFields
+            .map(
+              (e) => PasswordFieldModel.fromEntity(
+                e.copyWith(
+                  passwordId: newId,
+                  createdAt: DateTime.now(),
+                  updatedAt: DateTime.now(),
+                ),
+              ).toTableCompanion(),
+            )
+            .toList(),
       );
 
       return await getPasswordInfo(newId);
@@ -53,6 +53,14 @@ class PasswordLocalDatasourceImpl implements PasswordLocalDatasource {
       // log("$e");
       throw CustomFailure("$e");
     }
+  }
+
+  @override
+  Future<bool> deletePasswords(NoParams params) async {
+    final response = await appDatabase.passwordDao.deletePasswords();
+    if (response == 0) throw UnknownFailure();
+
+    return response != 0;
   }
 
   @override

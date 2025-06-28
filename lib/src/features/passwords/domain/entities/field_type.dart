@@ -22,8 +22,9 @@ enum FieldType {
     icon: Icons.account_balance_wallet_outlined,
     keyboardType: TextInputType.text,
   ),
-  dateYM(icon: Icons.calendar_today, keyboardType: TextInputType.datetime)
-  ;
+  dateYM(icon: Icons.calendar_today, keyboardType: TextInputType.datetime),
+
+  recoveryCodes(icon: Icons.security, keyboardType: TextInputType.multiline);
 
   final IconData icon;
   final TextInputType keyboardType;
@@ -36,6 +37,7 @@ enum FieldType {
   bool get isEmail => this == email;
   bool get isLink => this == website;
   bool get isIP => this == ipAddress;
+  bool get isRecoveryCodes => this == recoveryCodes;
 
   bool get isLarge => switch (this) {
     FieldType.text => true,

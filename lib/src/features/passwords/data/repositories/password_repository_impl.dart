@@ -74,4 +74,14 @@ class PasswordRepositoryImpl implements PasswordRepository {
       return Left(UnknownFailure());
     }
   }
+
+  @override
+  FailureOr<bool> deletePasswords(NoParams params) async {
+    try {
+      final responce = await datasource.deletePasswords(params);
+      return Right(responce);
+    } catch (e) {
+      return Left(UnknownFailure());
+    }
+  }
 }

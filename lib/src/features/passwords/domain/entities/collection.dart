@@ -37,4 +37,22 @@ class Collection extends BaseEntity {
       updatedAt: DateTime.now(),
     );
   }
+
+  Collection copyWith({
+    int? id,
+    String? name,
+    String? iconPath,
+    List<Password>? passwords,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Collection(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      iconPath: iconPath ?? this.iconPath,
+      passwords: passwords ?? this.passwords,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }

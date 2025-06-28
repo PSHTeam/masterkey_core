@@ -3,7 +3,10 @@ import 'package:envied/envied.dart';
 
 part 'env.g.dart';
 
-@Envied(path: ".env", obfuscate: true)
+@Envied(
+  path: 'C:\\Projects\\PSHTeam\\MasterKey\\masterkey_desktop\\.env',
+  obfuscate: true,
+)
 abstract class Env {
   @EnviedField(varName: 'APP_KEY', obfuscate: true)
   static final String appKey = _Env.appKey;

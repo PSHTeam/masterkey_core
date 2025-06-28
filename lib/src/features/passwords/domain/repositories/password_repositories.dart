@@ -6,6 +6,9 @@ abstract class PasswordRepository {
   FailureOr<Password> updatePassword(UpdatePasswordParams params);
   FailureOr<bool> deletePassword(int passwordId);
 
+  FailureOr<bool> deletePasswords(NoParams params);
+
+
   FailureOr<Password> toggle2FA(Toggle2FAParams params);
   FailureOr<Password> toggleArchiveStatus(TogglePasswordArchiveParams params);
 }

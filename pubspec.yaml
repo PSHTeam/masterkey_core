@@ -45,4 +45,4 @@ dev_dependencies:
   envied_generator: ^1.1.1 # Code generator for Envied.
 
 flutter:
-  uses-material-design: true 
+  uses-material-design: true

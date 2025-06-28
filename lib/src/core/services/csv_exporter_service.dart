@@ -46,7 +46,11 @@ class CSVExporter {
   Future<List<File>> _exportPasswords(String separator) async {
     final rawData = await appDatabase.passwordDao.getPasswords(
       force: true,
-      GetAllPasswordsParams(order: OrderType.byCreationTime, reverse: false),
+      GetAllPasswordsParams(
+        order: OrderType.byCreationTime,
+        reverse: false,
+        passwordsType: HomePasswordsType.unsorted,
+      ),
     );
 
     if (rawData.isEmpty) return [];
@@ -68,10 +72,9 @@ class CSVExporter {
         for (var field in fields) {
           final fieldType = FieldType.getFields[field.type];
           final index = headers.indexOf(fieldType.name);
-          row[index] =
-              fieldType.isDate
-                  ? datetimeYMD(DateTime.parse(field.value))
-                  : field.value;
+          row[index] = fieldType.isDate
+              ? datetimeYMD(DateTime.parse(field.value))
+              : field.value;
         }
         row[headers.indexOf("Created at")] = datetimeToCSV(password.createdAt);
         row[headers.indexOf("Updated at")] = datetimeToCSV(password.updatedAt);
@@ -84,11 +87,12 @@ class CSVExporter {
     //   name: "Data",
     // );
 
-    headers = List.from(headers)..replaceRange(
-      1,
-      headers.length - 2,
-      FieldType.getFields.map((e) => e.name),
-    );
+    headers = List.from(headers)
+      ..replaceRange(
+        1,
+        headers.length - 2,
+        FieldType.getFields.map((e) => e.name),
+      );
     // log(headers.toString(), name: "Headers");
     List<List<String>> rows = List.generate(
       data.length,
@@ -127,17 +131,16 @@ class CSVExporter {
     if (data.isEmpty) return [];
 
     final headers = ["Title", "Phrase Key", "Created at", "Updated at"];
-    final rows =
-        data
-            .map(
-              (e) => [
-                e.title,
-                e.seedPhrase,
-                datetimeToCSV(e.createdAt),
-                datetimeToCSV(e.updatedAt),
-              ],
-            )
-            .toList();
+    final rows = data
+        .map(
+          (e) => [
+            e.title,
+            e.seedPhrase,
+            datetimeToCSV(e.createdAt),
+            datetimeToCSV(e.updatedAt),
+          ],
+        )
+        .toList();
 
     final csv = ListToCsvConverter(
       fieldDelimiter: separator,
@@ -164,18 +167,17 @@ class CSVExporter {
       "Updated at",
     ];
     // log('Card: ${data.toString()}');
-    final List<List<String>> rows =
-        data.map((e) {
-          return <String>[
-            "'${e.title}'",
-            "'${e.holderName}'",
-            "'${e.number}'",
-            e.expireDate.toString(),
-            e.cvv.toString(),
-            datetimeToCSV(e.createdAt),
-            datetimeToCSV(e.updatedAt),
-          ];
-        }).toList();
+    final List<List<String>> rows = data.map((e) {
+      return <String>[
+        "'${e.title}'",
+        "'${e.holderName}'",
+        "'${e.number}'",
+        e.expireDate.toString(),
+        e.cvv.toString(),
+        datetimeToCSV(e.createdAt),
+        datetimeToCSV(e.updatedAt),
+      ];
+    }).toList();
 
     final csv = ListToCsvConverter(
       fieldDelimiter: separator,

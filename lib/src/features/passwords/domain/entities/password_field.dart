@@ -5,6 +5,7 @@ class PasswordField extends FieldEntity {
   final FieldType type;
   final int order;
   final String value;
+  final bool isRecoveryCodes;
 
   const PasswordField({
     super.id,
@@ -12,6 +13,7 @@ class PasswordField extends FieldEntity {
     required this.type,
     required this.order,
     required this.value,
+    this.isRecoveryCodes = false,
     required super.createdAt,
     required super.updatedAt,
   });
@@ -23,6 +25,7 @@ class PasswordField extends FieldEntity {
     type,
     order,
     value,
+    isRecoveryCodes,
     createdAt,
     updatedAt,
   ];
@@ -44,6 +47,7 @@ class PasswordField extends FieldEntity {
       type: type,
       order: 0,
       value: "",
+      isRecoveryCodes: false,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -55,6 +59,7 @@ class PasswordField extends FieldEntity {
     FieldType? type,
     int? order,
     String? value,
+    bool? isRecoveryCodes,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -64,6 +69,7 @@ class PasswordField extends FieldEntity {
       type: type ?? this.type,
       order: order ?? this.order,
       value: value ?? this.value,
+      isRecoveryCodes: isRecoveryCodes ?? this.isRecoveryCodes,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -72,6 +78,7 @@ class PasswordField extends FieldEntity {
   factory PasswordField.authCode({
     required int passwordId,
     required String value,
+    isRecoveryCodes = false,
   }) {
     return PasswordField(
       id: -1,
@@ -79,6 +86,7 @@ class PasswordField extends FieldEntity {
       type: FieldType.authCode,
       order: 0,
       value: value,
+      isRecoveryCodes: isRecoveryCodes,
       updatedAt: DateTime.now(),
       createdAt: DateTime.now(),
     );

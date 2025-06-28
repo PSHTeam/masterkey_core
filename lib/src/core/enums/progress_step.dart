@@ -8,7 +8,7 @@ enum ProgressStep {
 
   bool get isFetchStatistics => this == fetchStatistics;
   bool get isPasswords => this == passwords;
-  bool get isCollections => this == collections;
+  bool get isCategories => this == collections;
   bool get isCards => this == cards;
   bool get isWallets => this == wallets;
   bool get isSuccess => this == success;

@@ -114,17 +114,14 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.singleton<_i1064.AppDatabase>(() => registerModule.database);
-    // gh.lazySingletonAsync<_i497.Directory>(
-    //   () async => await registerModule.cacheDir(),
-    // );
     gh.lazySingleton<_i493.CardLocalDataSource>(
       () => _i493.CardLocalDataSourceImpl(gh<_i1064.AppDatabase>()),
     );
-    gh.lazySingletonAsync<_i74.ManageLocalDatasource>(
-      () async => _i74.ManageLocalDatasourceImpl(
+    gh.lazySingleton<_i74.ManageLocalDatasource>(
+      () => _i74.ManageLocalDatasourceImpl(
         gh<_i1064.AppDatabase>(),
         gh<_i460.SharedPreferences>(),
-        await getAsync<_i497.Directory>(),
+        gh<_i497.Directory>(),
       ),
     );
     gh.lazySingleton<_i165.AuthLocalDatasource>(
@@ -157,10 +154,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i497.Directory>(),
       ),
     );
-    gh.lazySingletonAsync<_i1064.ManageDataRepository>(
-      () async => _i455.ManageDataRepositoryImpl(
-        await getAsync<_i1064.ManageLocalDatasource>(),
-      ),
+    gh.lazySingleton<_i1064.ManageDataRepository>(
+      () => _i455.ManageDataRepositoryImpl(gh<_i1064.ManageLocalDatasource>()),
     );
     gh.lazySingleton<_i1064.WalletRepository>(
       () => _i370.WalletRepositoryImpl(gh<_i1064.WalletLocalDatasource>()),
@@ -205,9 +200,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i369.ToggleArchiveCardStatusUsecase>(
       () => _i369.ToggleArchiveCardStatusUsecase(gh<_i1064.CardRepository>()),
     );
-    gh.lazySingletonAsync<_i672.BackupDatabaseUsecase>(
-      () async => _i672.BackupDatabaseUsecase(
-        await getAsync<_i1064.ManageDataRepository>(),
+    gh.lazySingleton<_i672.BackupDatabaseUsecase>(
+      ()  => _i672.BackupDatabaseUsecase(
+        gh<_i1064.ManageDataRepository>(),
       ),
     );
     gh.lazySingleton<_i833.DeleteDatabaseUsecase>(

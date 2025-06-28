@@ -1,10 +1,9 @@
-// lib/env/env.dart
 import 'package:envied/envied.dart';
 
 part 'env.g.dart';
 
 @Envied(
-  path: 'C:\\Projects\\PSHTeam\\MasterKey\\masterkey_desktop\\.env',
+  path: '.env',
   obfuscate: true,
 )
 abstract class Env {

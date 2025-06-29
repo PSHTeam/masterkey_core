@@ -1,0 +1,9 @@
+targets:
+  $default:
+    builders:
+      envied_generator|envied:
+        generate_for:
+          - lib/src/core/dotenv/env.dart
+        options:
+          path: ./../.env    # ← relative to the package root
+          override: true

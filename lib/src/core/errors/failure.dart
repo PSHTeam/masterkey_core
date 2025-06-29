@@ -1,92 +1,151 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
-abstract class Failure extends Equatable {
+enum MasterkeyErrorCode {
+  auth,
+  unknown,
+  notFound,
+  cancelledBackup,
+  userNotFound,
+  invalidRestorePassword,
+  invalidRestoreFile,
+  restoreFileIsEmpty,
+  restoreMissingFile,
+  decryptRestoreFile,
+  purchase,
+  custom,
+}
+
+abstract class Failure<T> extends Equatable {
   const Failure();
 
-  String getMessage(BuildContext context);
-
-  bool get passable => false;
+  MasterkeyErrorCode get code;
+  String getMessage({T? context});
 
   @override
   List<Object> get props => [];
 }
 
-class AuthFailure extends Failure {
+class AuthFailure extends Failure<String> {
   const AuthFailure();
   @override
-  String getMessage(BuildContext context) => "authFailureMsg";
+  MasterkeyErrorCode get code => MasterkeyErrorCode.auth;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? "Authentication failed. Please try again.";
+  }
 }
 
-class UnknownFailure extends Failure {
+class UnknownFailure extends Failure<String> {
   const UnknownFailure();
   @override
-  String getMessage(BuildContext context) => "unknownFailureMsg";
-}
-
-class WalletFailure extends Failure {
-  const WalletFailure();
-  @override
-  String getMessage(BuildContext context) => "walletFailureMsg";
-}
-
-class NotFoundFailure extends Failure {
-  const NotFoundFailure();
-  @override
-  String getMessage(BuildContext context) => "notFoundFailureMsg";
-}
-
-class UserNotFoundFailure extends Failure {
-  @override
-  String getMessage(BuildContext context) => "userNotFoundFailureMsg";
-}
-
-class CustomFailure extends Failure {
-  final String message;
-
-  const CustomFailure(this.message);
+  MasterkeyErrorCode get code => MasterkeyErrorCode.unknown;
 
   @override
-  String getMessage(BuildContext context) => message;
+  String getMessage({String? context}) {
+    return context ?? "An unknown error occurred. Please try again later.";
+  }
 }
 
-class CancelledBackupFailure extends Failure {
+class NotFoundFailure extends Failure<String> {
+  @override
+  MasterkeyErrorCode get code => MasterkeyErrorCode.notFound;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? "Requested resource not found.";
+  }
+}
+
+class UserNotFoundFailure extends Failure<String> {
+  @override
+  MasterkeyErrorCode get code => MasterkeyErrorCode.userNotFound;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? "User not found.";
+  }
+}
+
+class CustomFailure extends Failure<String> {
+  final String msg;
+
+  const CustomFailure(this.msg);
+
+  @override
+  MasterkeyErrorCode get code => MasterkeyErrorCode.custom;
+
+  @override
+  String getMessage({String? context}) => context ?? msg;
+}
+
+class CancelledBackupFailure extends Failure<String> {
   const CancelledBackupFailure();
 
   @override
-  String getMessage(BuildContext context) => "";
+  MasterkeyErrorCode get code => MasterkeyErrorCode.cancelledBackup;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? "Backup operation was cancelled.";
+  }
 }
 
-class InvalidRestorePassword extends Failure {
+class InvalidRestorePassword extends Failure<String> {
   const InvalidRestorePassword();
   @override
-  String getMessage(BuildContext context) => "errorRestorePassword";
+  MasterkeyErrorCode get code => MasterkeyErrorCode.invalidRestorePassword;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? "Invalid restore password.";
+  }
 }
 
-class InvalidRestoreFileFailure extends Failure {
+class InvalidRestoreFileFailure extends Failure<String> {
   const InvalidRestoreFileFailure();
   @override
-  String getMessage(BuildContext context) => "invalidRestoreFile";
+  MasterkeyErrorCode get code => MasterkeyErrorCode.invalidRestoreFile;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? "Invalid restore file.";
+  }
 }
 
-class RestoreFileIsEmptyFailure extends Failure {
+class RestoreFileIsEmptyFailure extends Failure<String> {
   const RestoreFileIsEmptyFailure();
   @override
-  String getMessage(BuildContext context) => "restoreFileIsEmpty";
+  MasterkeyErrorCode get code => MasterkeyErrorCode.restoreFileIsEmpty;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? "Restore file is empty.";
+  }
 }
 
-class RestoreMissingFileFailure extends Failure {
+class RestoreMissingFileFailure extends Failure<String> {
+  final String fileName;
   const RestoreMissingFileFailure(this.fileName);
 
-  final String fileName;
   @override
-  String getMessage(BuildContext context) =>
-      "restoreMissingFileFailureMsg(filename)";
+  MasterkeyErrorCode get code => MasterkeyErrorCode.restoreMissingFile;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? fileName;
+  }
+
 }
 
-class DecryptRestoreFileFailureMsg extends Failure {
+class DecryptRestoreFileFailureMsg extends Failure<String> {
   const DecryptRestoreFileFailureMsg();
 
   @override
-  String getMessage(BuildContext context) => "decryptRestoreFileFailureMsg";
+  MasterkeyErrorCode get code => MasterkeyErrorCode.decryptRestoreFile;
+
+  @override
+  String getMessage({String? context}) {
+    return context ?? "Failed to decrypt the restore file.";
+  }
 }

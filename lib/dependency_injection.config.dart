@@ -201,9 +201,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i369.ToggleArchiveCardStatusUsecase(gh<_i1064.CardRepository>()),
     );
     gh.lazySingleton<_i672.BackupDatabaseUsecase>(
-      ()  => _i672.BackupDatabaseUsecase(
-        gh<_i1064.ManageDataRepository>(),
-      ),
+      () => _i672.BackupDatabaseUsecase(gh<_i1064.ManageDataRepository>()),
     );
     gh.lazySingleton<_i833.DeleteDatabaseUsecase>(
       () => _i833.DeleteDatabaseUsecase(gh<_i1064.ManageDataRepository>()),
@@ -240,6 +238,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i299.AddPasswordUsecase>(
       () => _i299.AddPasswordUsecase(gh<_i1064.PasswordRepository>()),
     );
+    gh.lazySingleton<_i668.DeletePasswordsUsecase>(
+      () => _i668.DeletePasswordsUsecase(gh<_i1064.PasswordRepository>()),
+    );
     gh.lazySingleton<_i429.DeletePasswordUsecase>(
       () => _i429.DeletePasswordUsecase(gh<_i1064.PasswordRepository>()),
     );
@@ -256,9 +257,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i671.UpdatePasswordUsecase>(
       () => _i671.UpdatePasswordUsecase(gh<_i1064.PasswordRepository>()),
-    );
-    gh.lazySingleton<_i668.DeletePasswordsUsecase>(
-      () => _i668.DeletePasswordsUsecase(gh<_i1064.PasswordRepository>()),
     );
     return this;
   }

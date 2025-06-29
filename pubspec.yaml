@@ -10,9 +10,6 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
   shared_preferences: ^2.5.2 # For storing simple key-value pairs persistently.
   equatable: ^2.0.7 # Simplifies equality comparisons for Dart objects.
   injectable: ^2.5.0 # Dependency injection framework for Dart and Flutter.

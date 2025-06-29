@@ -20,18 +20,10 @@ class WalletLocalDatasourceImpl implements WalletLocalDatasource {
   @override
   Future<WalletModel> create(WalletParams wallet) async {
     final walletId = await appDatabase.walletDao.insertWallet(wallet);
-
-    if (walletId == 0) {
-      throw WalletFailure();
-    }
-
     final walletTableData = await appDatabase.walletDao.getWalletById(walletId);
 
-    // log('Wallet ID: $walletId');
+    if (walletTableData == null) throw UnknownFailure();
 
-    if (walletTableData == null) {
-      throw WalletFailure();
-    }
 
     return WalletModel.fromTableData(walletTableData);
   }
@@ -66,13 +58,13 @@ class WalletLocalDatasourceImpl implements WalletLocalDatasource {
       seedPhrase: params.seedPhrase,
     );
 
-    if (updateId == 0) throw WalletFailure();
+    if (updateId == 0) throw UnknownFailure();
 
     final walletTableData = await appDatabase.walletDao.getWalletById(
       params.walletId,
     );
 
-    if (walletTableData == null) throw WalletFailure();
+    if (walletTableData == null) throw UnknownFailure();
 
     return WalletModel.fromTableData(walletTableData);
   }
@@ -85,13 +77,13 @@ class WalletLocalDatasourceImpl implements WalletLocalDatasource {
       params: params,
     );
 
-    if (updateId == 0) throw WalletFailure();
+    if (updateId == 0) throw UnknownFailure();
 
     final walletTableData = await appDatabase.walletDao.getWalletById(
       params.id,
     );
 
-    if (walletTableData == null) throw WalletFailure();
+    if (walletTableData == null) throw UnknownFailure();
 
     return WalletModel.fromTableData(walletTableData);
   }

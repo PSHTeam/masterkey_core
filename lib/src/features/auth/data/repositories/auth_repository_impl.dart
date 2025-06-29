@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart' show Left, Right;
 import 'package:injectable/injectable.dart';
+
 import 'package:masterkey_core/src/src.dart';
 
 @LazySingleton(as: AuthRepository)
@@ -16,7 +17,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on Failure catch (failure) {
       return Left(failure);
     } catch (e) {
-      // log("Error: $e");
+      print("Error: $e");
       return Left(UnknownFailure());
     }
   }

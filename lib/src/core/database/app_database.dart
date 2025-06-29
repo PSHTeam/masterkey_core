@@ -32,12 +32,14 @@ class AppDatabase extends _$AppDatabase {
   }
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-    // onCreate: (migrator) async => await migrator.createAll(),
-    // onUpgrade: (migrator, from, to) async {},
+    onCreate: (migrator) async => await migrator.createAll(),
+    onUpgrade: (migrator, from, to) async {
+      
+    },
   );
 }
 

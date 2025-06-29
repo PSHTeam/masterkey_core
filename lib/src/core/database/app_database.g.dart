@@ -2803,6 +2803,16 @@ class $CardFieldTableTable extends CardFieldTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _orderMeta = const VerificationMeta('order');
+  @override
+  late final GeneratedColumn<int> order = GeneratedColumn<int>(
+    'order',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -2834,6 +2844,7 @@ class $CardFieldTableTable extends CardFieldTable
     type,
     value,
     hintText,
+    order,
     createdAt,
     updatedAt,
   ];
@@ -2882,6 +2893,12 @@ class $CardFieldTableTable extends CardFieldTable
         hintText.isAcceptableOrUnknown(data['hint_text']!, _hintTextMeta),
       );
     }
+    if (data.containsKey('order')) {
+      context.handle(
+        _orderMeta,
+        order.isAcceptableOrUnknown(data['order']!, _orderMeta),
+      );
+    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -2927,6 +2944,11 @@ class $CardFieldTableTable extends CardFieldTable
         DriftSqlType.string,
         data['${effectivePrefix}hint_text'],
       ),
+      order:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}order'],
+          )!,
       createdAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -2953,6 +2975,7 @@ class CardFieldTableData extends DataClass
   final int type;
   final String value;
   final String? hintText;
+  final int order;
   final DateTime createdAt;
   final DateTime updatedAt;
   const CardFieldTableData({
@@ -2961,6 +2984,7 @@ class CardFieldTableData extends DataClass
     required this.type,
     required this.value,
     this.hintText,
+    required this.order,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -2974,6 +2998,7 @@ class CardFieldTableData extends DataClass
     if (!nullToAbsent || hintText != null) {
       map['hint_text'] = Variable<String>(hintText);
     }
+    map['order'] = Variable<int>(order);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
@@ -2989,6 +3014,7 @@ class CardFieldTableData extends DataClass
           hintText == null && nullToAbsent
               ? const Value.absent()
               : Value(hintText),
+      order: Value(order),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
@@ -3005,6 +3031,7 @@ class CardFieldTableData extends DataClass
       type: serializer.fromJson<int>(json['type']),
       value: serializer.fromJson<String>(json['value']),
       hintText: serializer.fromJson<String?>(json['hintText']),
+      order: serializer.fromJson<int>(json['order']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -3018,6 +3045,7 @@ class CardFieldTableData extends DataClass
       'type': serializer.toJson<int>(type),
       'value': serializer.toJson<String>(value),
       'hintText': serializer.toJson<String?>(hintText),
+      'order': serializer.toJson<int>(order),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -3029,6 +3057,7 @@ class CardFieldTableData extends DataClass
     int? type,
     String? value,
     Value<String?> hintText = const Value.absent(),
+    int? order,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => CardFieldTableData(
@@ -3037,6 +3066,7 @@ class CardFieldTableData extends DataClass
     type: type ?? this.type,
     value: value ?? this.value,
     hintText: hintText.present ? hintText.value : this.hintText,
+    order: order ?? this.order,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
   );
@@ -3047,6 +3077,7 @@ class CardFieldTableData extends DataClass
       type: data.type.present ? data.type.value : this.type,
       value: data.value.present ? data.value.value : this.value,
       hintText: data.hintText.present ? data.hintText.value : this.hintText,
+      order: data.order.present ? data.order.value : this.order,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -3060,6 +3091,7 @@ class CardFieldTableData extends DataClass
           ..write('type: $type, ')
           ..write('value: $value, ')
           ..write('hintText: $hintText, ')
+          ..write('order: $order, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -3067,8 +3099,16 @@ class CardFieldTableData extends DataClass
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, cardId, type, value, hintText, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+    id,
+    cardId,
+    type,
+    value,
+    hintText,
+    order,
+    createdAt,
+    updatedAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3078,6 +3118,7 @@ class CardFieldTableData extends DataClass
           other.type == this.type &&
           other.value == this.value &&
           other.hintText == this.hintText &&
+          other.order == this.order &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
@@ -3088,6 +3129,7 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
   final Value<int> type;
   final Value<String> value;
   final Value<String?> hintText;
+  final Value<int> order;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   const CardFieldTableCompanion({
@@ -3096,6 +3138,7 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
     this.type = const Value.absent(),
     this.value = const Value.absent(),
     this.hintText = const Value.absent(),
+    this.order = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -3105,6 +3148,7 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
     required int type,
     required String value,
     this.hintText = const Value.absent(),
+    this.order = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   }) : cardId = Value(cardId),
@@ -3116,6 +3160,7 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
     Expression<int>? type,
     Expression<String>? value,
     Expression<String>? hintText,
+    Expression<int>? order,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
   }) {
@@ -3125,6 +3170,7 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
       if (type != null) 'type': type,
       if (value != null) 'value': value,
       if (hintText != null) 'hint_text': hintText,
+      if (order != null) 'order': order,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
@@ -3136,6 +3182,7 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
     Value<int>? type,
     Value<String>? value,
     Value<String?>? hintText,
+    Value<int>? order,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
   }) {
@@ -3145,6 +3192,7 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
       type: type ?? this.type,
       value: value ?? this.value,
       hintText: hintText ?? this.hintText,
+      order: order ?? this.order,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -3168,6 +3216,9 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
     if (hintText.present) {
       map['hint_text'] = Variable<String>(hintText.value);
     }
+    if (order.present) {
+      map['order'] = Variable<int>(order.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -3185,6 +3236,7 @@ class CardFieldTableCompanion extends UpdateCompanion<CardFieldTableData> {
           ..write('type: $type, ')
           ..write('value: $value, ')
           ..write('hintText: $hintText, ')
+          ..write('order: $order, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -6472,6 +6524,7 @@ typedef $$CardFieldTableTableCreateCompanionBuilder =
       required int type,
       required String value,
       Value<String?> hintText,
+      Value<int> order,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
@@ -6482,6 +6535,7 @@ typedef $$CardFieldTableTableUpdateCompanionBuilder =
       Value<int> type,
       Value<String> value,
       Value<String?> hintText,
+      Value<int> order,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
@@ -6548,6 +6602,11 @@ class $$CardFieldTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<int> get order => $composableBuilder(
+    column: $table.order,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
@@ -6611,6 +6670,11 @@ class $$CardFieldTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get order => $composableBuilder(
+    column: $table.order,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -6665,6 +6729,9 @@ class $$CardFieldTableTableAnnotationComposer
 
   GeneratedColumn<String> get hintText =>
       $composableBuilder(column: $table.hintText, builder: (column) => column);
+
+  GeneratedColumn<int> get order =>
+      $composableBuilder(column: $table.order, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
@@ -6735,6 +6802,7 @@ class $$CardFieldTableTableTableManager
                 Value<int> type = const Value.absent(),
                 Value<String> value = const Value.absent(),
                 Value<String?> hintText = const Value.absent(),
+                Value<int> order = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => CardFieldTableCompanion(
@@ -6743,6 +6811,7 @@ class $$CardFieldTableTableTableManager
                 type: type,
                 value: value,
                 hintText: hintText,
+                order: order,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -6753,6 +6822,7 @@ class $$CardFieldTableTableTableManager
                 required int type,
                 required String value,
                 Value<String?> hintText = const Value.absent(),
+                Value<int> order = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => CardFieldTableCompanion.insert(
@@ -6761,6 +6831,7 @@ class $$CardFieldTableTableTableManager
                 type: type,
                 value: value,
                 hintText: hintText,
+                order: order,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),

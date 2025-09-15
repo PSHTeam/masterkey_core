@@ -1,0 +1,44 @@
+name: masterkey_core
+description: "A Flutter package for managing master keys with encryption, storage, and utilities."
+version: 1.0.0
+repository: https://github.com/PSHTeam/masterkey_core.git
+homepage: https://github.com/PSHTeam/masterkey_core.git
+
+publish_to: none
+
+environment:
+  sdk: ^3.8.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  # Logic & data handling
+  equatable: ^2.0.7         # Value equality for Dart objects.
+  dartz: ^0.10.1            # Functional programming primitives.
+  csv: ^6.0.0               # CSV parsing and serialization.
+  archive: ^4.0.4           # ZIP, TAR, and GZIP archives.
+
+  # Core utilities
+  drift: ^2.26.0             # Reactive ORM with SQL support.
+  drift_flutter: ^0.2.4
+  path: ^1.9.1               # Filesystem path utilities.
+  path_provider: ^2.1.5      # Locate common directories.
+  path_drawing: ^1.0.1       # SVG-style path parsing/drawing.
+  shared_preferences: ^2.5.2 # Persistent key-value storage.
+  file_picker: ^10.2.0        # Cross-platform file picker.
+
+  # Security & encryption
+  crypto: ^3.0.6                    # Hashing and HMAC algorithms.
+  cryptography_plus: ^2.7.0         # Common crypto interfaces.
+  cryptography_flutter_plus: ^2.3.4 # Flutter-optimized crypto.
+  encrypt: ^5.0.3                   # High-level symmetric encryption.
+
+  # Dependency injection
+  get_it: ^8.0.3     # Service locator.
+  injectable: ^2.5.0 # Code-generated DI.
+
+  # Internationalization
+  intl: ^0.20.2       # i18n and localization support.
+  uuid: ^4.5.1
+
+dev_dependencies:
+  test: ^1.26.2

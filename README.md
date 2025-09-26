@@ -64,7 +64,9 @@ We’ve intentionally **avoided** all such third-party tools. Your usage data st
 
 ## 🚀 Try MasterKey Today
 
-🔗 [Download it on Google Play](https://play.google.com/store/apps/details?id=dev.pshteam.masterkey_core&hl=en)
+[<img src="./assets/google-play-badge.png" alt="Get it on Google Play" style="height: 60px; width: auto;" />](https://play.google.com/store/apps/details?id=dev.pshteam.master_key)
+[<img src="./assets/app-store-badge.png" alt="Download on the App Store" style="height: 60px; width: auto;" />](https://apps.apple.com/app/id6748267239)
+
 
 ✅ Free to use — and if you love it, you can **support the project** by unlocking the **lifetime plan** for just **$9.99**.
 
